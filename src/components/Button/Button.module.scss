@@ -1,0 +1,16 @@
+.bookmarkFill {
+    svg path {
+        @apply transition;
+        fill: transparent;
+    }
+
+    &:hover svg path {
+        fill: #fff;
+    }
+}
+
+.bookmarkActive {
+    svg path {
+        fill: #fff;
+    }
+}
