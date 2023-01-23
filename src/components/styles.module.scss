@@ -1,3 +1,18 @@
 .buttonLink {
     @apply opacity-60 hover:opacity-100;
 }
+
+.buttonCreate {
+    @apply w-full rounded-lg text-base py-1 text-white bg-green-600 hover:bg-green-500 uppercase;
+}
+
+$header-height: 9rem;
+
+.headerHeight {
+    height: $header-height;
+}
+
+.modalBgHeight {
+    height: calc(100% - $header-height);
+    top: $header-height;
+}

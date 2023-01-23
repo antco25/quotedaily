@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from '../Footer/Footer';
 import Grid from '../Grid/Grid';
 import Header from '../Header/Header';
+import BookmarkFormModal from '../Modals/BookmarkFormModal';
 import './App.scss';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Grid />
       </main>
       <Footer />
+      <BookmarkFormModal />
     </div>
   );
 }
