@@ -2,8 +2,23 @@
     @apply opacity-60 hover:opacity-100;
 }
 
-.buttonCreate {
-    @apply w-full rounded-lg text-base py-1 text-white bg-green-600 hover:bg-green-500 uppercase;
+.buttonForm {
+    @apply w-full rounded-lg text-base py-1 text-white uppercase;
+
+    &.buttonCreate {
+        @apply bg-green-600 hover:bg-green-500 ;
+    }
+
+    &.buttonDelete {
+        @apply  bg-red-600 hover:bg-red-500;
+    }
+}
+
+
+.crossIconBlack {
+    path {
+        fill: black;
+    }
 }
 
 $header-height: 9rem;

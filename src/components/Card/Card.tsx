@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStateContext } from '../../context/ContextWrap';
 import { Quote } from '../../context/dataTypes';
 import BookmarkButton from '../Button/BookmarkButton';
 import quotation from '../Icons/quotation.svg';
@@ -11,6 +12,9 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 //TODO: Max length of content
 function Card({ data, topCard, className }: CardProps) {
+
+  const { setBookmarkModalVisible } = useStateContext();
+
   return (
     <div className={`${className ? className + ' ' : ''}${styles.cardBGOpacity}
     relative group cursor-pointer bg-white rounded-lg shadow-lg xsm:h-[300px] xs:h-[260px] h-[240px] text-center p-5`}>
@@ -25,7 +29,8 @@ function Card({ data, topCard, className }: CardProps) {
         </div>
         <p className={`${styles.cardText} ${styles.bgOpacity} ${topCard ? 'md:text-lg xsm:text-[1rem]' : ''} xs:text-base text-sm italic mt-3 p-1`}>-{data.author}</p>
       </div>
-      <BookmarkButton large={topCard} className={`absolute top-2 right-2 transition opacity-0 group-hover:opacity-100`}/>
+      <BookmarkButton large={topCard} onClick={() => setBookmarkModalVisible(true)}
+      className={`absolute top-2 right-2 transition opacity-0 group-hover:opacity-100`}/>
     </div>
   );
 }

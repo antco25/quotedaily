@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
+import { useStateContext } from '../../context/ContextWrap';
 import logo from '../Icons/logo.svg';
-import BookmarkModal from '../Modals/BookmarkModal';
-import FilterModal from '../Modals/FilterModal';
-import ModalBackground from '../Modals/ModalBackground';
+import MenuBookmarkModal from '../Modals/MenuBookmarkModal';
+import MenuFilterModal from '../Modals/MenuFilterModal';
+import ModalHeaderBG from '../Modals/ModalHeaderBG';
 import styles from '../styles.module.scss';
 
 //TODO: Remove modals when click outside (disable onmouseenter/leave to test)
+//Go to modalheaderBG and pass it an onClick function. 
 function Header() {
+  const { modalBGVisible, setModalBGVisible } = useStateContext();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [bookmarkModalVisible, setBookmarkModalVisible] = useState(false);
+
+  const setModalVisible = (visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>) => {
+    if (visible) {
+      setVisible(true);
+      setModalBGVisible(true);
+    } else {
+      setVisible(false);
+      setModalBGVisible(false);
+    }
+  }
 
   return (
     <header className={`bg-white min-[1140px]:px-0 px-5 flex justify-center ${styles.headerHeight}`}>
@@ -17,16 +30,18 @@ function Header() {
         <img className='xsm:h-8 h-7 mr-auto' src={logo} alt='logo' />
         <ul className='font-medium xs:text-lg text-base flex items-center min-[450px]:w-auto w-full justify-between'>
           <li className='inline-block relative px-2'
-            onMouseEnter={() => setFilterModalVisible(true)} onMouseLeave={() => setFilterModalVisible(false)}>
+            onMouseEnter={() => setModalVisible(true, setFilterModalVisible)}
+            onMouseLeave={() => setModalVisible(false, setFilterModalVisible)}>
             <button className={`${styles.buttonLink} ${filterModalVisible ? '!opacity-100' : ''} p-1`}
-              onClick={() => setFilterModalVisible(!filterModalVisible)}>Filters</button>
-            <FilterModal visible={filterModalVisible} />
+              onClick={() => setModalVisible(!filterModalVisible, setFilterModalVisible)}>Filters</button>
+            <MenuFilterModal visible={filterModalVisible} />
           </li>
-          <li className='inline-block relative group px-2'
-            onMouseEnter={() => setBookmarkModalVisible(true)} onMouseLeave={() => setBookmarkModalVisible(false)}>
+          <li className='inline-block relative px-2'
+            onMouseEnter={() => setModalVisible(true, setBookmarkModalVisible)}
+            onMouseLeave={() => setModalVisible(false, setBookmarkModalVisible)}>
             <button className={`${styles.buttonLink} ${bookmarkModalVisible ? '!opacity-100' : ''} p-1`}
-              onClick={() => setBookmarkModalVisible(!bookmarkModalVisible)}>Bookmarks</button>
-            <BookmarkModal visible={bookmarkModalVisible} />
+              onClick={() => setModalVisible(!bookmarkModalVisible, setFilterModalVisible)}>Bookmarks</button>
+            <MenuBookmarkModal visible={bookmarkModalVisible} />
           </li>
           <li className='inline-block pl-2'>
             <button className={`bg-green-600 hover:bg-green-500 text-white rounded-lg py-1 px-3`}>
@@ -35,7 +50,7 @@ function Header() {
           </li>
         </ul>
       </div>
-      {(!filterModalVisible || bookmarkModalVisible) && <ModalBackground />}
+      {modalBGVisible && <ModalHeaderBG />}
     </header>
   );
 }

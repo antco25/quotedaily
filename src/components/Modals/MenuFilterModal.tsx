@@ -8,7 +8,7 @@ const filters = [
   'Courage',
 ]
 
-function FilterModal({ visible }: ModalProps) {
+function MenuFilterModal({ visible }: ModalProps) {
   const [filter, setFilter] = useState([false, false, false]);
 
   const onFilterClick = (index: number) => {
@@ -37,4 +37,4 @@ function FilterModal({ visible }: ModalProps) {
   );
 }
 
-export default FilterModal;
+export default MenuFilterModal;
