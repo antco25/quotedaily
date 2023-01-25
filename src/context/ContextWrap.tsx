@@ -5,25 +5,47 @@ interface ContextWrapProps {
 }
 
 interface ContextType {
-    modalBGVisible: boolean,
-    setModalBGVisible: React.Dispatch<React.SetStateAction<boolean>>,
     bookmarkModalVisible: boolean,
     setBookmarkModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    bookmarkFormModalVisible: boolean,
+    setBookmarkFormModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    bookmarkModalEdit: boolean,
+    setBookmarkModalEdit: React.Dispatch<React.SetStateAction<boolean>>,
+    bookmarkFormModalEdit: boolean,
+    setBookmarkFormModalEdit: React.Dispatch<React.SetStateAction<boolean>>,
+    bookmarkMenuModalVisible: boolean,
+    setBookmarkMenuModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    closeModal: () => void,
 }
 
 const Context = createContext({} as ContextType);
 
 export const ContextWrap: React.FC<ContextWrapProps> = ({ children }) => {
-    const [modalBGVisible, setModalBGVisible] = useState(false);
     const [bookmarkModalVisible, setBookmarkModalVisible] = useState(false);
+    const [bookmarkFormModalVisible, setBookmarkFormModalVisible] = useState(false);
+    const [bookmarkMenuModalVisible, setBookmarkMenuModalVisible] = useState(false);
+    const [bookmarkModalEdit, setBookmarkModalEdit] = useState(false);
+    const [bookmarkFormModalEdit, setBookmarkFormModalEdit] = useState(false);
+
+    const closeModal = () => {
+        setBookmarkModalVisible(false);
+        setBookmarkFormModalVisible(false);
+    }
 
     return (
         <Context.Provider
             value={{
-                modalBGVisible,
-                setModalBGVisible,
                 bookmarkModalVisible,
-                setBookmarkModalVisible
+                setBookmarkModalVisible,
+                bookmarkFormModalVisible,
+                setBookmarkFormModalVisible,
+                bookmarkModalEdit,
+                setBookmarkModalEdit,
+                bookmarkFormModalEdit,
+                setBookmarkFormModalEdit,
+                bookmarkMenuModalVisible,
+                setBookmarkMenuModalVisible,
+                closeModal
             }}
         >
             {children}

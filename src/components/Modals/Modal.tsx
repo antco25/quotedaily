@@ -1,24 +1,20 @@
 import React from 'react';
+import { useStateContext } from '../../context/ContextWrap';
 
-export interface ModalProps {
-  visible?: boolean,
+interface ModalProps {
+    children?: JSX.Element,
 }
 
-interface BaseModalProps extends ModalProps {
-  title: string,
-  children?: JSX.Element
-}
+const Modal: React.FC<ModalProps> = ({ children }) => {
 
-const Modal: React.FC<BaseModalProps> = ({ visible, title, children }) => {
-  return (
-    <div className={`${visible ? 'visible opacity-100' : 'invisible opacity-0'} absolute bg-white top-full left-1/2 -translate-x-1/2 
-    z-20 rounded-lg p-4 w-48 shadow-lg`}>
-      <h1 className='text-lg border-b border-black/30 xsm:hidden'>{title}</h1>
-      <ul className='font-normal text-base cursor-pointer'>
-        {children}
-      </ul>
-    </div>
-  );
+    const { closeModal } = useStateContext();
+
+    return (
+        <div className='fixed overflow-auto min-w-[375px] w-full h-full top-0 left-0 bg-black/40 z-30'
+            onClick={() => closeModal()}>
+            {children}
+        </div>
+    );
 }
 
 export default Modal;

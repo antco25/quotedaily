@@ -3,11 +3,12 @@ import { useStateContext } from '../../context/ContextWrap';
 import Footer from '../Footer/Footer';
 import Grid from '../Grid/Grid';
 import Header from '../Header/Header';
+import BookmarkFormModal from '../Modals/BookmarkFormModal';
 import BookmarkModal from '../Modals/BookmarkModal';
 import './App.scss';
 
 function App() {
-  const { bookmarkModalVisible } = useStateContext();
+  const { bookmarkModalVisible, bookmarkModalEdit, bookmarkFormModalVisible, bookmarkFormModalEdit } = useStateContext();
 
   return (
     <div className="App bg-neutral-100">
@@ -16,7 +17,8 @@ function App() {
         <Grid />
       </main>
       <Footer />
-      {bookmarkModalVisible && <BookmarkModal />}
+      {bookmarkModalVisible && <BookmarkModal edit={bookmarkModalEdit} />}
+      {bookmarkFormModalVisible && <BookmarkFormModal edit={bookmarkFormModalEdit} />}
     </div>
   );
 }

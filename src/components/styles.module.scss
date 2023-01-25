@@ -3,7 +3,7 @@
 }
 
 .buttonForm {
-    @apply w-full rounded-lg text-base py-1 text-white uppercase;
+    @apply w-full xs:rounded-lg rounded-md xs:text-base text-sm py-1 text-white uppercase;
 
     &.buttonCreate {
         @apply bg-green-600 hover:bg-green-500 ;

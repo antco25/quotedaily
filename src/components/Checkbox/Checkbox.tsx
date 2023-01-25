@@ -9,7 +9,7 @@ interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
 function Checkbox({ active, className }: CheckboxProps) {
   return (
     <CheckboxIcon className={`${active ? styles.active + ' ' : ''}${className ? className + ' ' : ''}${styles.default}
-     inline-block w-4`} />
+     inline-block xs:w-4 w-3`} />
   );
 }
 export default Checkbox;

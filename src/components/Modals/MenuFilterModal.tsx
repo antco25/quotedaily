@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Checkbox from '../Checkbox/Checkbox';
-import Modal, { ModalProps } from './Modal';
+import MenuModal, { MenuModalProps } from './MenuModal';
 
 const filters = [
   'All',
@@ -8,7 +8,7 @@ const filters = [
   'Courage',
 ]
 
-function MenuFilterModal({ visible }: ModalProps) {
+function MenuFilterModal({ visible }: MenuModalProps) {
   const [filter, setFilter] = useState([false, false, false]);
 
   const onFilterClick = (index: number) => {
@@ -18,14 +18,14 @@ function MenuFilterModal({ visible }: ModalProps) {
   }
 
   return (
-    <Modal title='Add Filters' visible={visible}>
+    <MenuModal visible={visible} className='max-[450px]:-left-4 max-[450px]:translate-x-0'>
       <>
         {
           filters.map((f, i, row) => {
             return (
               <li key={i} className={`${i + 1 === row.length ? '' : 'border-b border-black/30 '}`}
                 onClick={() => onFilterClick(i)}>
-                <div className='py-1 flex opacity-60 hover:opacity-100'>
+                <div className='xs:py-1 py-1.5 flex opacity-60 hover:opacity-100'>
                   <Checkbox className='mr-4' active={filter[i]} />{f}
                 </div>
               </li>
@@ -33,7 +33,7 @@ function MenuFilterModal({ visible }: ModalProps) {
           })
         }
       </>
-    </Modal>
+    </MenuModal>
   );
 }
 
