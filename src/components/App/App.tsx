@@ -8,7 +8,7 @@ import BookmarkModal from '../Modals/BookmarkModal';
 import './App.scss';
 
 function App() {
-  const { bookmarkModalVisible, bookmarkModalEdit, bookmarkFormModalVisible, bookmarkFormModalEdit } = useStateContext();
+  const { bookmarkModalVisible, bookmarkModalEdit, bookmarkFormModalVisible } = useStateContext();
 
   return (
     <div className="App bg-neutral-100">
@@ -18,7 +18,7 @@ function App() {
       </main>
       <Footer />
       {bookmarkModalVisible && <BookmarkModal edit={bookmarkModalEdit} />}
-      {bookmarkFormModalVisible && <BookmarkFormModal edit={bookmarkFormModalEdit} />}
+      {bookmarkFormModalVisible && <BookmarkFormModal/>}
     </div>
   );
 }

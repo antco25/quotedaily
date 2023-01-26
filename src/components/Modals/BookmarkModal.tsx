@@ -4,18 +4,13 @@ import { ReactComponent as CrossIcon } from '../Icons/cross.svg';
 import { useStateContext } from '../../context/ContextWrap';
 import Modal from './Modal';
 
-const bookmarks = [
-  '+ New Folder',
-  'Favorites',
-]
-
 interface BookmarkModalProps {
   edit?: boolean
 }
 
 function BookmarkModal({ edit }: BookmarkModalProps) {
 
-  const { setBookmarkModalVisible } = useStateContext();
+  const { bookmarks, setBookmarkModalVisible } = useStateContext();
 
   const handleSelection = () => {
     setBookmarkModalVisible(false)

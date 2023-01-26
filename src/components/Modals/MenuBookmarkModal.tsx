@@ -3,23 +3,18 @@ import { useStateContext } from '../../context/ContextWrap';
 import { ReactComponent as EditIcon } from '../Icons/edit.svg';
 import MenuModal, { MenuModalProps } from './MenuModal';
 
-const bookmarks = [
-  'Favorites',
-  'Wisdom'
-]
-
 function MenuBookmarkModal({ visible }: MenuModalProps) {
 
-  const { setBookmarkMenuModalVisible, setBookmarkFormModalVisible, setBookmarkFormModalEdit } = useStateContext();
+  const { bookmarks, setBookmarkMenuModalVisible, setBookmarkFormModalVisible, setBookmarkFormModalEdit } = useStateContext();
 
   const handleNewClick = () => {
-    setBookmarkFormModalEdit(false);
+    setBookmarkFormModalEdit({ edit: false, index: -1 });
     setBookmarkMenuModalVisible(false)
     setBookmarkFormModalVisible(true);
   }
 
-  const handleEditClick = () => {
-    setBookmarkFormModalEdit(true);
+  const handleEditClick = (bookmarkIndex: number) => {
+    setBookmarkFormModalEdit({ edit: true, index: bookmarkIndex });
     setBookmarkMenuModalVisible(false)
     setBookmarkFormModalVisible(true);
   }
@@ -37,7 +32,7 @@ function MenuBookmarkModal({ visible }: MenuModalProps) {
                 onClick={() => setBookmarkMenuModalVisible(false)}>
                 <div className='text-black/60 hover:text-black xs:py-1 py-1.5 flex group'>{b}
                   <EditIcon className='inline-block xs:w-4 w-3.5 ml-auto invisible group-hover:visible opacity-50 hover:opacity-100'
-                    onClick={handleEditClick} />
+                    onClick={() => handleEditClick(i)} />
                 </div>
               </li>
             )
