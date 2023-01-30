@@ -1,8 +1,10 @@
 import { createContext, useContext, useState } from "react";
 import { FilterTagType } from "../components/FilterTag/FilterTag";
 import { Bookmark, CurrentQuote, Quote, SavedQuote } from "./dataTypes";
+import { data } from "./sampleData";
 
-const data = {
+const quoteData = data.results as Quote[];
+const appData = {
     bookmarks: [
         { id: 'b1', name: 'Favorites' },
         { id: 'b2', name: 'Wisdom' }
@@ -27,6 +29,9 @@ interface ContextWrapProps {
 //TODO: Remove bookmarkModalEdit
 //TODO: Generate unique ID
 interface ContextType {
+    quotes: Quote[],
+    currentBookmark?: Bookmark,
+    updateCurrentBookmark: (bookmark?: Bookmark) => void,
     bookmarks: Bookmark[],
     addBookmark: (name: string) => void,
     updateBookmark: (name: string, index: number) => void,
@@ -55,12 +60,14 @@ interface ContextType {
 const Context = createContext({} as ContextType);
 
 export const ContextWrap: React.FC<ContextWrapProps> = ({ children }) => {
-    const _filters = data.filters.map(f => {
+    const _filters = appData.filters.map(f => {
         return { filter: f, active: false }
     })
 
-    const [bookmarks, setBookmarks] = useState<Bookmark[]>(data.bookmarks);
-    const [savedQuotes, setSavedQuotes] = useState<SavedQuote[]>(data.savedQuotes);
+    const [quotes, setQuotes] = useState(quoteData);
+    const [currentBookmark, setCurrentBookmark] = useState<Bookmark>();
+    const [bookmarks, setBookmarks] = useState<Bookmark[]>(appData.bookmarks);
+    const [savedQuotes, setSavedQuotes] = useState<SavedQuote[]>(appData.savedQuotes);
     const [currentQuote, setCurrentQuote] = useState<CurrentQuote | undefined>();
     const [filters, setFilters] = useState(_filters);
     const [bookmarkModalVisible, setBookmarkModalVisible] = useState(false);
@@ -72,6 +79,28 @@ export const ContextWrap: React.FC<ContextWrapProps> = ({ children }) => {
     const closeModal = () => {
         setBookmarkModalVisible(false);
         setBookmarkFormModalVisible(false);
+    }
+
+    const updateCurrentBookmark = (bookmark?: Bookmark) => {
+        if (bookmark === undefined) {
+            setCurrentBookmark(undefined);
+            setQuotes(quoteData);
+            return;
+        }
+
+        const saved = savedQuotes.filter(v => v.bookmarkId === bookmark.id);
+        const quotes = [] as Quote[];
+        for (let i = 0; i < saved.length; i++) {
+            for (let y = 0; y < quoteData.length; y++) {
+                if (quoteData[y]._id === saved[i].quoteId) {
+                    quotes.push(quoteData[y]);
+                    break;
+                }
+            }
+        }
+        setCurrentBookmark(bookmark);
+        setQuotes(quotes);
+
     }
 
     const addBookmark = (name: string) => {
@@ -121,6 +150,9 @@ export const ContextWrap: React.FC<ContextWrapProps> = ({ children }) => {
     return (
         <Context.Provider
             value={{
+                quotes,
+                currentBookmark,
+                updateCurrentBookmark,
                 bookmarks,
                 addBookmark,
                 updateBookmark,
