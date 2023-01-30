@@ -31,3 +31,9 @@ $header-height: 9rem;
     height: calc(100% - $header-height);
     top: $header-height;
 }
+
+.checkmark {
+    rect {
+        stroke: transparent;
+    }
+}

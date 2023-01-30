@@ -17,7 +17,7 @@ function App() {
         <Grid />
       </main>
       <Footer />
-      {bookmarkModalVisible && <BookmarkModal edit={bookmarkModalEdit} />}
+      {bookmarkModalVisible && <BookmarkModal />}
       {bookmarkFormModalVisible && <BookmarkFormModal/>}
     </div>
   );

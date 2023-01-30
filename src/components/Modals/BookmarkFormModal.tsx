@@ -12,8 +12,8 @@ function BookmarkFormModal() {
   const [error, setError] = useState(false);
 
   const { edit, index } = bookmarkFormModalEdit;
-  const editName = bookmarks[index];
-  const [name, setName] = useState(edit ? editName : '');
+  const editName = edit ? bookmarks[index].name : '';
+  const [name, setName] = useState(editName);
 
   const handleDelete = () => {
     if (!deleteWarning) {
@@ -63,8 +63,7 @@ function BookmarkFormModal() {
           ${error ? 'outline outline-1 outline-red-600' : 'outline-none'}`} />
         <button className={`${styles.buttonForm} ${styles.buttonCreate}`} onClick={handleSubmit}>{edit ? 'Update' : 'Create'}</button>
         {
-          edit && <button className={`${styles.buttonForm} ${styles.buttonDelete} mt-2`} onClick={handleDelete}
-            disabled={index === 0}>Delete</button>
+          edit && (index !== 0) && <button className={`${styles.buttonForm} ${styles.buttonDelete} mt-2`} onClick={handleDelete}>Delete</button>
         }
         {deleteWarning && <label className='block xs:text-[0.875rem] text-sm text-red-600'>This process is irreversable. Continue?</label>}
       </div>
